@@ -26,10 +26,9 @@ http.createServer((request, response) => {
                 throw err;
             }
             response.writeHead(200, {'Content-Type': 'text/html'});
+            response.write(data);
+            response.end();
         });
-
-        response.write(data);
-        response.end();
 
 }).listen(8080);
 console.log('My firt Node test server is running on Port 8080.');
