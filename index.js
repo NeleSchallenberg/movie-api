@@ -29,15 +29,16 @@ let topMovies = [
     },
 ]
 
+app.use(express.static('public'));
+
 // Creating GET requests
 app.get('/', (req, res) => {
     res.send('Welcome to my movie club!')
-})
+});
+
 app.get('/movies', (req, res) => {
     res.json(topMovies)
-})
-
-app.use(express.static('public'));
+});
 
 // Listen for requests
 app.listen(8080, () => {
