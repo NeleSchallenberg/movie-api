@@ -1,14 +1,11 @@
-// Importing Express module
+// Importing Express module and Morgan logging middleware
 const express = require('express'),
     morgan = require('morgan');
 
 const app = express();
 
 app.use(express.static('public'));
-
 app.use(morgan('common'));
-
-
 
 // Declaring variable for top 10 movies
 let topMovies = [
@@ -37,14 +34,19 @@ let topMovies = [
     },
 ]
 
-// Creating GET requests
+// Creating GET requests for different routes
 app.get('/', (req, res) => {
     res.send('Welcome to my movie club!')
 });
-
 app.get('/movies', (req, res) => {
     res.json(topMovies)
 });
+
+// Creating error-handling middleware function
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something broke!');
+})
 
 // Listen for requests
 app.listen(8080, () => {
