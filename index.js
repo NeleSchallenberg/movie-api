@@ -7,7 +7,7 @@ const app = express();
 app.use(express.static('public'));
 app.use(morgan('common'));
 
-// Declaring variable for top 10 movies
+// Declaring JSON object with top ten movies
 let topMovies = [
     { 
         title: 'Drive My Car',
@@ -31,6 +31,42 @@ let topMovies = [
         title: 'Billy Elliot',
         year: '2000',
         director: 'Stephen Daldry',
+    },
+
+    { 
+        title: 'The Life Aquatic with Steve Zissou',
+        year: '2004',
+        director: 'Wes Anderson',
+    },
+
+    { 
+        title: 'Inception',
+        year: '2010',
+        director: 'Christopher Nolan',
+    },
+
+    { 
+        title: 'La La Land',
+        year: '2016',
+        director: 'Damien Chazelle',
+    },
+
+    { 
+        title: 'Mystic River',
+        year: '2003',
+        director: 'Clint Eastwood',
+    },
+
+    { 
+        title: 'Across the Universe',
+        year: '2007',
+        director: 'Julie Taymor',
+    },
+
+    { 
+        title: 'Cold War',
+        year: '2018',
+        director: 'Paweł Pawlikowski',
     },
 ]
 
