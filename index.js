@@ -1,6 +1,14 @@
 // Importing Express module
-const express = require('express');
+const express = require('express'),
+    morgan = require('morgan');
+
 const app = express();
+
+app.use(express.static('public'));
+
+app.use(morgan('Common'));
+
+
 
 // Declaring variable for top 10 movies
 let topMovies = [
@@ -28,8 +36,6 @@ let topMovies = [
         director: 'Stephen Daldry',
     },
 ]
-
-app.use(express.static('public'));
 
 // Creating GET requests
 app.get('/', (req, res) => {
