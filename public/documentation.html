@@ -4,14 +4,163 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Movie API</title>
+
+        <style>
+            body {
+                font-family: arial, sans-serif;
+            }
+
+            table {
+              border-collapse: collapse;
+              width: 100%;
+            }
+            
+            td, th {
+              border: 1px solid #696969;
+              text-align: left;
+              padding: 8px;
+            }
+            
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+            </style>
     </head>
     <body>
         <h1>Achievement 2 Project</h1>
         <h2>Movie API</h2>
         <p>
             This project is the server-side component of a “movies” web application.
-            The web application will provide users with access to information about different movies, directors, and genres. 
+            The web application will provide users with access to information about different movies, directors, and genres.<br>
             Users will be able to sign up, update their personal information, and create a list of their favorite movies.
         </p>
+
+        <h2>URL Endpoints</h2>
+
+        <table>
+        <!-- HEADERS -->
+        <tr>
+            <th>Request</th>
+            <th>URL</th>
+            <th>HTTP Method</th>
+            <th>Request body data format</th>
+            <th>Response body data format</th>
+        </tr>
+
+        <!-- LIST OF ALL MOVIES -->
+        <tr>
+            <td>Get a list of all movies</td>
+            <td>/movies</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about all movies</td>
+        </tr>
+
+        <!-- SINGLE MOVIE BY TITLE -->
+        <tr>
+            <td>Get data about a single movie by title</td>
+            <td>/movies/[title]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about a movie, containing a title, description, genre, year, and director property. Example:<br> 
+                {
+                    "Title": "Drive My Car",
+                    "year": 2021,
+                    "director": "Ryusuke Hamaguchi"
+                }
+            </td>
+        </tr>
+
+        <!-- GENRE BY NAME -->
+        <tr>
+            <td>Get data about a genre by name</td>
+            <td>/movies/genres/[name]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about a genre, containing a name and description property. Example:<br> 
+                {
+                    "Name": "Drama",
+                    "Description": "In film and television, drama is a category or genre of narrative fiction..."
+                }
+            </td>
+        </tr>
+
+        <!-- DIRECTOR BY NAME -->
+        <tr>
+            <td>Get data about a director by name</td>
+            <td>/movies/directors/[name]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about a director, containing a name and bio property. Example:<br> 
+                {
+                "Name": "Wes Anderson",
+                "Bio": "Wesley Wales Anderson was born on May 1, 1969, in Houston, Texas. His films are known for..."
+            }
+            </td>
+        </tr>
+
+        <!-- REGISTER NEW USER -->
+        <tr>
+            <td>Register new users</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>A JSON object holding data about the user to register, structured like:
+                { "name": "Karen", "favoriteMovies": [] }
+            </td>
+            <td>A JSON object holding data about the user that was registered, including an ID:
+                {
+                    "name": "Karen",
+                    "favoriteMovies": [],
+                    "id": "3681d316-902e-4921-9208-2ceba39b41a6"
+                }
+            </td>
+        </tr>
+
+         <!-- UPDATE USER NAME -->
+         <tr>
+            <td>Update a user name</td>
+            <td>/users/[id]</td>
+            <td>PUT</td>
+            <td>A JSON object holding data with the new name, structured like:
+                { "name": "Regina Updated" }
+            </td>
+            <td>A JSON object holding updated data about the user. Example:
+                {
+                    "id": 1,
+                    "name": "Regina Updated",
+                    "favoriteMovies": [
+                        "The Prestige"
+                    ]
+                }
+            </td>
+        </tr>
+
+         <!-- ADD MOVIE TO FAVORITE LIST -->
+         <tr>
+            <td>Add a movie to a user's favorite list</td>
+            <td>/users/[name]/[title]</td>
+            <td>POST</td>
+            <td>None</td>
+            <td>A text message indicating whether the movie was successfully added to the list</td>
+        </tr>
+
+        <!-- REMOVE MOVIE FROM FAVORITE LIST -->
+        <tr>
+            <td>Remove a movie from a user's favorite list</td>
+            <td>/users/[name]/[title]</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>A text message indicating whether the movie was successfully removed from the list</td>
+        </tr>
+
+        <!-- REMOVE USER -->
+        <tr>
+            <td>Remove a user by ID</td>
+            <td>/users/[id]</td>
+            <td>DELETE</td>
+            <td>None</td>
+            <td>A text message indicating whether the user was successfully removed</td>
+        </tr>
+        </table>
     </body>
 </html>
