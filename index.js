@@ -1,4 +1,4 @@
-// Importing Express module, Morgan logging middleware and uuid
+// Importing Express module, Morgan logging middleware, body-parser and uuid
 const express = require('express'),
     morgan = require('morgan'),
     uuid = require('uuid'),
