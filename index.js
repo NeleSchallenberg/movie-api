@@ -1,11 +1,14 @@
 // Importing Express module, Morgan logging middleware and uuid
 const express = require('express'),
     morgan = require('morgan'),
+    uuid = require('uuid'),
+    bodyParser = require('body-parser');
 
 const app = express();
 
 app.use(express.static('public'));
 app.use(morgan('common'));
+app.use(bodyParser.json());
 
 // Declaring JSON object with top ten movies
 let topMovies = [
