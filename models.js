@@ -30,9 +30,9 @@ let userSchema = mongoose.Schema({
 });
 
 // Creating models to USE schemas
-let Movies = mongoose.model('Movie', movieSchema);
-let Users = mongoose.model('User', userSchema);
+let Movie = mongoose.model('Movie', movieSchema);
+let User = mongoose.model('User', userSchema);
 
 // Exporting models (in order to import them into index.js)
-module.exports.Movie = Movies;
-module.exports.User = Users;
+module.exports.Movie = Movie;
+module.exports.User = User;
