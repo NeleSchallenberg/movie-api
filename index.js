@@ -23,43 +23,43 @@ app.get('/', (req, res) => {
     res.send('Welcome to my my Movie API!')
 });
 
-// Returns a list of all movies
-app.get('/movies', (req, res) => {
-    res.status(200).json(movies)
-});
+// // Returns a list of all movies
+// app.get('/movies', (req, res) => {
+//     res.status(200).json(movies)
+// });
 
-// Returns data about a single movie by title
-app.get('/movies/:title', (req, res) => {
-    const { title } = req.params;
-    const movie = movies.find( movie => movie.Title === title );
-    if (movie) {
-        res.status(200).json(movie);
-    } else {
-        res.status(404).send('Movie not found :(')
-    }
-});
+// // Returns data about a single movie by title
+// app.get('/movies/:title', (req, res) => {
+//     const { title } = req.params;
+//     const movie = movies.find( movie => movie.Title === title );
+//     if (movie) {
+//         res.status(200).json(movie);
+//     } else {
+//         res.status(404).send('Movie not found :(')
+//     }
+// });
 
-// Returns data about a genre by name
-app.get('/movies/genres/:genreName', (req, res) => {
-    const { genreName } = req.params;
-    const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
-    if (genre) {
-        res.status(200).json(genre);
-    } else {
-        res.status(404).send('Genre not found :(')
-    }
-});
+// // Returns data about a genre by name
+// app.get('/movies/genres/:genreName', (req, res) => {
+//     const { genreName } = req.params;
+//     const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
+//     if (genre) {
+//         res.status(200).json(genre);
+//     } else {
+//         res.status(404).send('Genre not found :(')
+//     }
+// });
 
-// Returns data about a director by name
-app.get('/movies/directors/:directorName', (req, res) => {
-    const { directorName } = req.params;
-    const director = movies.find(movie => movie.Director.Name === directorName).Director;
-    if (director) {
-        res.status(200).json(director);
-    } else {
-        res.status(404).send('Director not found :(')
-    }
-});
+// // Returns data about a director by name
+// app.get('/movies/directors/:directorName', (req, res) => {
+//     const { directorName } = req.params;
+//     const director = movies.find(movie => movie.Director.Name === directorName).Director;
+//     if (director) {
+//         res.status(200).json(director);
+//     } else {
+//         res.status(404).send('Director not found :(')
+//     }
+// });
 
 app.post('/users', (req, res) => {
     User.findOne({ Username: req.body.Username })
@@ -129,62 +129,62 @@ app.post('/users', (req, res) => {
 //     }
 // });
 
-// Updates user name
-app.put('/users/:id', (req, res) => {
-    const { id } = req.params;
-    const updatedUser = req.body;
+// // Updates user name
+// app.put('/users/:id', (req, res) => {
+//     const { id } = req.params;
+//     const updatedUser = req.body;
 
-    let user = users.find( user => user.id == id );
+//     let user = users.find( user => user.id == id );
 
-    if (user) {
-        user.name = updatedUser.name;
-        res.status(200).json(user);
-    } else {
-        res.status(400).send('User not found :(')
-    }
-});
+//     if (user) {
+//         user.name = updatedUser.name;
+//         res.status(200).json(user);
+//     } else {
+//         res.status(400).send('User not found :(')
+//     }
+// });
 
-// Adds movie to user favorite list by name
-app.post('/users/:name/:movieTitle', (req, res) => {
-    const { name, movieTitle } = req.params;
+// // Adds movie to user favorite list by name
+// app.post('/users/:name/:movieTitle', (req, res) => {
+//     const { name, movieTitle } = req.params;
 
-    let user = users.find( user => user.name == name );
+//     let user = users.find( user => user.name == name );
 
-    if (user) {
-        user.favoriteMovies.push(movieTitle);
-        res.status(200).send(`${movieTitle} has been added to ${name}'s list!`);
-    } else {
-        res.status(400).send('User not found :(')
-    }
-});
+//     if (user) {
+//         user.favoriteMovies.push(movieTitle);
+//         res.status(200).send(`${movieTitle} has been added to ${name}'s list!`);
+//     } else {
+//         res.status(400).send('User not found :(')
+//     }
+// });
 
-// Removes movie from user favorite list by name
-app.delete('/users/:name/:movieTitle', (req, res) => {
-    const { name, movieTitle } = req.params;
+// // Removes movie from user favorite list by name
+// app.delete('/users/:name/:movieTitle', (req, res) => {
+//     const { name, movieTitle } = req.params;
 
-    let user = users.find( user => user.name == name );
+//     let user = users.find( user => user.name == name );
 
-    if (user) {
-        user.favoriteMovies = user.favoriteMovies.filter( title => title !== movieTitle);
-        res.status(200).send(`${movieTitle} has been removed from ${name}'s list!`);
-    } else {
-        res.status(400).send('User not found :(')
-    }
-});
+//     if (user) {
+//         user.favoriteMovies = user.favoriteMovies.filter( title => title !== movieTitle);
+//         res.status(200).send(`${movieTitle} has been removed from ${name}'s list!`);
+//     } else {
+//         res.status(400).send('User not found :(')
+//     }
+// });
 
-// Removes user by ID
-app.delete('/users/:id', (req, res) => {
-    const { id } = req.params;
+// // Removes user by ID
+// app.delete('/users/:id', (req, res) => {
+//     const { id } = req.params;
 
-    let user = users.find( user => user.id == id );
+//     let user = users.find( user => user.id == id );
 
-    if (user) {
-        users = users.filter( user => user.id != id);
-        res.status(200).send(`User ${id} has been deleted.`);
-    } else {
-        res.status(400).send('User not found :(')
-    }
-});
+//     if (user) {
+//         users = users.filter( user => user.id != id);
+//         res.status(200).send(`User ${id} has been deleted.`);
+//     } else {
+//         res.status(400).send('User not found :(')
+//     }
+// });
 
 // Creates error-handling middleware function
 app.use((err, req, res, next) => {
