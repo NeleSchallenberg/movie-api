@@ -222,11 +222,11 @@ app.get('/movies/directors/:directorName', (req, res) => {
 
 // POST request creating a new user, expecting JSON format
 app.post('/users', (req, res) => {
-    Users.findOne({Username: req.body.Username}).then((user) => {
+    User.findOne({Username: req.body.Username}).then((user) => {
         if (user) {
             return res.status(400).send(req.body.Username + 'already exists.')
         } else {
-            Users.create({
+            User.create({
                 Username: req.body.Username,
                 Password: req.body.Password,
                 Email: req.body.Email,
