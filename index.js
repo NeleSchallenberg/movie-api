@@ -62,13 +62,12 @@ app.get('/', (req, res) => {
 // });
 
 app.post('/users', (req, res) => {
-    User.findOne({ Username: req.body.Username })
+    Users.findOne({ Username: req.body.Username })
       .then((user) => {
         if (user) {
           return res.status(400).send(req.body.Username + 'already exists');
         } else {
-          User
-            .create({
+          Users.create({
               Username: req.body.Username,
               Password: req.body.Password,
               Email: req.body.Email,
