@@ -220,32 +220,60 @@ app.get('/movies/directors/:directorName', (req, res) => {
     }
 });
 
-// POST request creating a new user, expecting JSON format
 app.post('/users', (req, res) => {
-    User.findOne({Username: req.body.Username}).then((user) => {
+    Users.findOne({ Username: req.body.Username })
+      .then((user) => {
         if (user) {
-            return res.status(400).send(req.body.Username + 'already exists.')
+          return res.status(400).send(req.body.Username + 'already exists');
         } else {
-            User.create({
-                Username: req.body.Username,
-                Password: req.body.Password,
-                Email: req.body.Email,
-                Birthday: req.body.Birthday
+          Users
+            .create({
+              Username: req.body.Username,
+              Password: req.body.Password,
+              Email: req.body.Email,
+              Birthday: req.body.Birthday
             })
-            .then((user) => {
-                res.status(201).json(user);
-            })
-            .catch((error) => {
-                console.error(error);
-                res.status(500).send('Error:' + error);
-            })
+            .then((user) =>{res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          })
         }
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         console.error(error);
-        res.status(500).send('Error:' + error);
-    });
-});
+        res.status(500).send('Error: ' + error);
+      });
+  });
+
+// // POST request creating a new user, expecting JSON format
+// app.post('/users', (req, res) => {
+//     User.findOne({Username: req.body.Username}).then((user) => {
+//         if (user) {
+//             return res.status(400).send(req.body.Username + 'already exists.')
+//         } else {
+//             User.create({
+//                 Username: req.body.Username,
+//                 Password: req.body.Password,
+//                 Email: req.body.Email,
+//                 Birthday: req.body.Birthday
+//             })
+//             .then((user) => {
+//                 res.status(201).json(user);
+//             })
+//             .catch((error) => {
+//                 console.error(error);
+//                 res.status(500).send('Error:' + error);
+//             })
+//         }
+//     })
+//     .catch((error) => {
+//         console.error(error);
+//         res.status(500).send('Error:' + error);
+//     });
+// });
+
+
 
 // // Registers new user
 // app.post('/users', (req, res) => {
