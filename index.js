@@ -2,8 +2,8 @@
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
-const Movie = Models.Movie;
-const User = Models.User;
+const Movies = Models.Movie;
+const Users = Models.User;
 
 // Connecting to database "cfDB"
 mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
