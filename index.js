@@ -1,183 +1,24 @@
-//Importing Mongoose package and models.js file
+// Importing modules and middleware
+const bodyParser = require('body-parser');
+const express = require('express');
+const app = express();
+const morgan = require('morgan');
+const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
-const Movie = Models.Movie;
-const User = Models.User;
+const Movies = Models.Movie;
+const Users = Models.User;
 
 // Connecting to database "cfDB"
 mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
-
-// Importing Express module, Morgan logging middleware, body-parser and uuid
-const express = require('express'),
-    morgan = require('morgan'),
-    uuid = require('uuid'),
-    bodyParser = require('body-parser');
-
-const app = express();
 
 app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
 
-// let movies = [
-//     { 
-//         'Title': 'Drive My Car',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': 'Drama',
-//             'Description': 'In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone.'
-//         },
-//         'Year': 2021,
-//         'Director': {
-//             'Name': 'Ryusuke Hamaguchi',
-//             'Bio': '...'
-//         }
-//     },
-
-//     { 
-//         'Title': 'The Royal Tennenbaums',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': '...',
-//             'Description': '...'
-//         },
-//         'Year': 2001,
-//         'Director': {
-//             'Name': 'Wes Anderson',
-//             'Bio': 'Wesley Wales Anderson was born on May 1, 1969, in Houston, Texas. His films are known for their eccentricity and unique visual and narrative styles. They often contain themes of grief, loss of innocence, and dysfunctional families.'
-//         }
-//     },
-
-//     { 
-//         'Title': 'The Virgin Suicides',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': '...',
-//             'Description': '...'
-//         },
-//         'Year': 1999,
-//         'Director': {
-//             'Name': 'Sofia Coppola',
-//             'Bio': '...'
-//         }
-//     },
-
-//     { 
-//         'Title': 'Billy Elliot',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': '...',
-//             'Description': '...'
-//         },
-//         'Year': 2000,
-//         'Director': {
-//             'Name': 'Stephen Daldry',
-//             'Bio': '...'
-//         }
-//     },
-
-//     { 
-//         'Title': 'The Life Aquatic with Steve Zissou',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': '...',
-//             'Description': '...'
-//         },
-//         'Year': 2004,
-//         'Director': {
-//             'Name': 'Wes Anderson',
-//             'Bio': '...'
-//         }
-//     },
-
-//     { 
-//         'Title': 'Inception',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': '...',
-//             'Description': '...'
-//         },
-//         'Year': 2010,
-//         'Director': {
-//             'Name': 'Christopher Nolan',
-//             'Bio': '...'
-//         }
-//     },
-
-//     { 
-//         'Title': 'La La Land',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': '...',
-//             'Description': '...'
-//         },
-//         'Year': 2016,
-//         'Director': {
-//             'Name': 'Damien Chazelle',
-//             'Bio': '...'
-//         }
-//     },
-
-//     { 
-//         'Title': 'Mystic River',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': '...',
-//             'Description': '...'
-//         },
-//         'Year': 2003,
-//         'Director': {
-//             'Name': 'Clint Eastwood',
-//             'Bio': '...'
-//         }
-//     },
-
-//     { 
-//         'Title': 'Across the Universe',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': '...',
-//             'Description': '...'
-//         },
-//         'Year': 2007,
-//         'Director': {
-//             'Name': 'Julie Taymor',
-//             'Bio': '...'
-//         }
-//     },
-
-//     { 
-//         'Title': 'Cold War',
-//         'Description': '...',
-//         'Genre': {
-//             'Name': '...',
-//             'Description': '...'
-//         },
-//         'Year': 2018,
-//         'Director': {
-//             'Name': 'Paweł Pawlikowski',
-//             'Bio': '...'
-//         }
-//     },
-// ]
-
-// let users = [
-//     {
-//         id: 1,
-//         name: 'Regina',
-//         favoriteMovies: ['The Prestige']
-//     },
-
-//     {
-//         id: 2,
-//         name: 'Miles',
-//         favoriteMovies: ['Pulp Fiction']
-//     }
-// ]
-
-// Returns a welcome message
+// GET request returning a welcome message
 app.get('/', (req, res) => {
     res.send('Welcome to my my Movie API!')
 });
