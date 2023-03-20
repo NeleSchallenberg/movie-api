@@ -23,10 +23,18 @@ app.get('/', (req, res) => {
     res.send('Welcome to my my Movie API!')
 });
 
-// // Returns a list of all movies
-// app.get('/movies', (req, res) => {
-//     res.status(200).json(movies)
-// });
+// GET request, returning a list of all movies
+app.get('/movies', (req, res) => {
+    Movies.find()
+    
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
+    
+
+
 
 // // Returns data about a single movie by title
 // app.get('/movies/:title', (req, res) => {
@@ -61,6 +69,7 @@ app.get('/', (req, res) => {
 //     }
 // });
 
+// POST request creating a new user, expecting JSON format
 app.post('/users', (req, res) => {
     Users.findOne({ Username: req.body.Username })
       .then((user) => {
@@ -86,7 +95,7 @@ app.post('/users', (req, res) => {
       });
   });
 
-// // POST request creating a new user, expecting JSON format
+// 
 // app.post('/users', (req, res) => {
 //     User.findOne({Username: req.body.Username}).then((user) => {
 //         if (user) {
