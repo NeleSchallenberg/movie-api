@@ -24,10 +24,12 @@ app.get('/', (req, res) => {
 
 // GET request returning a list of all movies
 app.get('/movies', (req, res) => {
-  Movies.find()
-  .catch((error) => {
-    console.error(error);
-    res.status(500).send('Error: ' + error);
+  Movies.find().then((movies) => {
+    res.status(201).json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
   });
 });
 
@@ -35,7 +37,7 @@ app.get('/movies', (req, res) => {
 app.get('/movies/:Title', (req, res) => {
   Movies.findOne({Title: req.params.Title})
   .then((movie) => {
-    res.json(movie);
+    res.status(201).json(movie);
   })
   .catch((err) => {
     console.error(err);
@@ -72,7 +74,7 @@ app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
-        return res.status(400).send(req.body.Username + ' already exists');
+        return res.status(400).send(req.body.Username + ' already exists!');
       } else {
         Users.create({
             Username: req.body.Username,
@@ -163,7 +165,7 @@ app.delete('/users/:Username', (req, res) => {
     });
 });
 
-// GET request reading ALL users
+// GET request returning ALL users
 app.get('/users', (req, res) => {
   Users.find().then((users) => {
     res.status(201).json(users);
@@ -174,7 +176,7 @@ app.get('/users', (req, res) => {
   });
 });
 
-// GET request reading one user by username
+// GET request returning user by username
 app.get('/users/:Username', (req, res) => {
   Users.findOne({Username: req.params.Username}).then((user) => {
     res.json(user);
