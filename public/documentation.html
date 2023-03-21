@@ -53,13 +53,34 @@
             <td>/movies</td>
             <td>GET</td>
             <td>None</td>
-            <td>A JSON object holding data about all movies</td>
+            <td>An array of JSON objects holding data about all movies. Example:
+                [
+                    { "Genre": {
+                        "Name": "Drama",
+                        "Description": "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
+                        },
+                        "Director": {
+                            "Name": "Sofia Coppola",
+                            "Bio": "Sofia Carmina Coppola, born 14th of May 1971 in New York City, is an American filmmaker and actress. The youngest child and only daughter of filmmakers Eleanor and Francis Ford Coppola, she made her film debut as an infant in her father's acclaimed crime drama film 'The Godfather'.",
+                            "Birth": "1971"
+                        },
+                        "Actors": [],
+                        "Title": "The Virgin Suicides",
+                        "Year": "1999",
+                        "Length": "97 min",
+                        "Description": "In suburban 1970's America, five dreamy sisters are quarantined away from social interaction when their youngest sister commits suicide. Their doomed fates indelibly mark the neighborhood boys who obsess over them.",
+                        "ImagePath": "https://images.mubicdn.net/images/film/313/cache-8080-1530511393/image-w1280.jpg?size=1280x",
+                        "id": 1
+                    }, 
+                    ...
+                ]
+            </td>
         </tr>
 
-        <!-- SINGLE MOVIE BY TITLE -->
+        <!-- MOVIE BY TITLE -->
         <tr>
-            <td>Get data about a single movie by title</td>
-            <td>/movies/[title]</td>
+            <td>Get data about a movie by title</td>
+            <td>/movies/[Title]</td>
             <td>GET</td>
             <td>None</td>
             <td>A JSON object holding data about a movie, containing a title, description, genre, year, and director property. Example:<br> 
@@ -89,25 +110,27 @@
             <td>/movies/genre/[genreName]</td>
             <td>GET</td>
             <td>None</td>
-            <td>A JSON object holding data about a genre, containing a name and description property. Example:<br> 
-                {
-                    "Genre": {
+            <td>An array of JSON objects holding data about movies from a certain genre. Example:<br> 
+                [
+                    { "Genre": {
                         "Name": "Drama",
                         "Description": "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
-                    },
-                    "Director": {
-                        "Name": "Sofia Coppola",
-                        "Bio": "Sofia Carmina Coppola, born 14th of May 1971 in New York City, is an American filmmaker and actress. The youngest child and only daughter of filmmakers Eleanor and Francis Ford Coppola, she made her film debut as an infant in her father's acclaimed crime drama film 'The Godfather'.",
-                        "Birth": "1971"
-                    },
-                    "Actors": [],
-                    "Title": "The Virgin Suicides",
-                    "Year": "1999",
-                    "Length": "97 min",
-                    "Description": "In suburban 1970’s America, five dreamy sisters are quarantined away from social interaction when their youngest sister commits suicide. Their doomed fates indelibly mark the neighborhood boys who obsess over them.",
-                    "ImagePath": "https://images.mubicdn.net/images/film/313/cache-8080-1530511393/image-w1280.jpg?size=1280x",
-                    "id": 1
-                }
+                        },
+                        "Director": {
+                            "Name": "Sofia Coppola",
+                            "Bio": "Sofia Carmina Coppola, born 14th of May 1971 in New York City, is an American filmmaker and actress. The youngest child and only daughter of filmmakers Eleanor and Francis Ford Coppola, she made her film debut as an infant in her father's acclaimed crime drama film 'The Godfather'.",
+                            "Birth": "1971"
+                        },
+                        "Actors": [],
+                        "Title": "The Virgin Suicides",
+                        "Year": "1999",
+                        "Length": "97 min",
+                        "Description": "In suburban 1970's America, five dreamy sisters are quarantined away from social interaction when their youngest sister commits suicide. Their doomed fates indelibly mark the neighborhood boys who obsess over them.",
+                        "ImagePath": "https://images.mubicdn.net/images/film/313/cache-8080-1530511393/image-w1280.jpg?size=1280x",
+                        "id": 1
+                    }, 
+                    ...
+                ]
             </td>
         </tr>
 
@@ -117,24 +140,27 @@
             <td>/movies/director/[directorName]</td>
             <td>GET</td>
             <td>None</td>
-            <td>A JSON object holding data about a director, containing a name and bio property. Example:<br> 
-                {
-                    "Genre": {
+            <td>An array of JSON objects holding data about movies by a certain director. Example:<br> 
+                [
+                    { "Genre": {
                         "Name": "Drama",
                         "Description": "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
-                    },
-                    "Director": {
-                        "Name": "Greta Gerwig",
-                        "Bio": "Greta Celeste Gerwig, born 4th of August 1983 in Sacramento, California, is an American actress, screenwriter, and director, known for acting in and making dialogue-driven independent films. She first garnered attention after working on and appearing in several mumblecore movies.",
-                        "Birth": "1983"
-                    },
-                    "Actors": [],
-                    "Title": "Little Women",
-                    "Year": "2019",
-                    "Length": "135 min",
-                    "Description": "Determined to make her own way in the 1860s, a writer looks back at the tough yet tender times spent with her three spirited sisters and a close friend.",
-                    "ImagePath": "https://images.mubicdn.net/images/film/210045/cache-446056-1578126368/image-w1280.jpg?size=1280x"
-                }
+                        },
+                        "Director": {
+                            "Name": "Sofia Coppola",
+                            "Bio": "Sofia Carmina Coppola, born 14th of May 1971 in New York City, is an American filmmaker and actress. The youngest child and only daughter of filmmakers Eleanor and Francis Ford Coppola, she made her film debut as an infant in her father's acclaimed crime drama film 'The Godfather'.",
+                            "Birth": "1971"
+                        },
+                        "Actors": [],
+                        "Title": "The Virgin Suicides",
+                        "Year": "1999",
+                        "Length": "97 min",
+                        "Description": "In suburban 1970’s America, five dreamy sisters are quarantined away from social interaction when their youngest sister commits suicide. Their doomed fates indelibly mark the neighborhood boys who obsess over them.",
+                        "ImagePath": "https://images.mubicdn.net/images/film/313/cache-8080-1530511393/image-w1280.jpg?size=1280x",
+                        "id": 1
+                    }, 
+                    ...
+                ]
             </td>
         </tr>
 
@@ -165,21 +191,26 @@
             </td>
         </tr>
 
-         <!-- UPDATE USER NAME -->
+         <!-- UPDATE USER DATA -->
          <tr>
-            <td>Update a user name</td>
-            <td>/users/[id]</td>
+            <td>Update user data by username</td>
+            <td>/users/[Username]</td>
             <td>PUT</td>
             <td>A JSON object holding data with the new name, structured like:
-                { "name": "Regina Updated" }
+                {
+                    "Password": "updatedPassword",
+                    "Email": "updated-email@gmx.net"
+                }
             </td>
             <td>A JSON object holding updated data about the user. Example:
                 {
-                    "id": 1,
-                    "name": "Regina Updated",
-                    "favoriteMovies": [
-                        "The Prestige"
-                    ]
+                    "_id": "6419d63cc0c01d3f11bd0f12",
+                    "Username": "newUser",
+                    "Password": "updatedPassword",
+                    "Email": "updated-email@gmx.net",
+                    "Birthday": "1990-09-08T22:00:00.000Z",
+                    "FavoriteMovies": [],
+                    "__v": 0
                 }
             </td>
         </tr>
@@ -187,28 +218,103 @@
          <!-- ADD MOVIE TO FAVORITE LIST -->
          <tr>
             <td>Add a movie to a user's favorite list</td>
-            <td>/users/[name]/[title]</td>
+            <td>/users/[Username]/movies/[MovieID]</td>
             <td>POST</td>
             <td>None</td>
-            <td>A text message indicating whether the movie was successfully added to the list</td>
+            <td>A JSON object holding the updated data about the user's favorite movies. Example:
+                {
+                    "_id": "6419d63cc0c01d3f11bd0f12",
+                    "Username": "newUser",
+                    "Password": "updatedPassword",
+                    "Email": "updated-email@gmx.net",
+                    "Birthday": "1990-09-08T22:00:00.000Z",
+                    "FavoriteMovies": [
+                        "m2",
+                        "m3",
+                        "m4",
+                        "m6"
+                    ],
+                    "__v": 0
+                }
+            </td>
         </tr>
 
         <!-- REMOVE MOVIE FROM FAVORITE LIST -->
         <tr>
             <td>Remove a movie from a user's favorite list</td>
-            <td>/users/[name]/[title]</td>
+            <td>/users/[Username]/movies/[MovieID]</td>
             <td>DELETE</td>
             <td>None</td>
-            <td>A text message indicating whether the movie was successfully removed from the list</td>
+            <td>A JSON object holding the updated data about the user's favorite movies. Example:
+                {
+                    "_id": "6419d63cc0c01d3f11bd0f12",
+                    "Username": "newUser",
+                    "Password": "updatedPassword",
+                    "Email": "updated-email@gmx.net",
+                    "Birthday": "1990-09-08T22:00:00.000Z",
+                    "FavoriteMovies": [
+                        "m2",
+                        "m3"
+                    ],
+                    "__v": 0
+                }
+            </td>
         </tr>
 
         <!-- REMOVE USER -->
         <tr>
-            <td>Remove a user by ID</td>
-            <td>/users/[id]</td>
+            <td>Remove a user by Username</td>
+            <td>/users/[Username]</td>
             <td>DELETE</td>
             <td>None</td>
-            <td>A text message indicating whether the user was successfully removed</td>
+            <td>A text message indicating whether the user was successfully removed.</td>
+        </tr>
+
+        <!-- LIST OF ALL USERS -->
+        <tr>
+            <td>Get a list of all users</td>
+            <td>/users</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>An array of JSON objects holding data about all users. Example:
+                [
+                    {
+                        "_id": "6419d63cc0c01d3f11bd0f12",
+                        "Username": "newUser",
+                        "Password": "updatedPassword",
+                        "Email": "updated-email@gmx.net",
+                        "Birthday": "1990-09-08T22:00:00.000Z",
+                        "FavoriteMovies": [
+                            "m2",
+                            "m3"
+                        ],
+                        "__v": 0
+                    },
+                    ...
+                ]
+            </td>
+        </tr>
+
+        <!-- USER BY USERNAME -->
+        <tr>
+            <td>Get data about a user by username</td>
+            <td>/users/[Username]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about a specific user. Example:
+                {
+                    "_id": "6419d63cc0c01d3f11bd0f12",
+                    "Username": "newUser",
+                    "Password": "updatedPassword",
+                    "Email": "updated-email@gmx.net",
+                    "Birthday": "1990-09-08T22:00:00.000Z",
+                    "FavoriteMovies": [
+                        "m2",
+                        "m3"
+                    ],
+                    "__v": 0
+                }
+            </td>
         </tr>
         </table>
     </body>
