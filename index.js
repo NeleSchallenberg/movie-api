@@ -171,9 +171,11 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 // DELETE request REMOVING MOVIE FROM FAVORITES
 app.delete('/users/:Username/movies/:MovieID', (req, res) => {
   Users.findOneAndRemove({Username: req.params.Username})
-  .then((user) => {
+  .then((user, movie) => {
     if (!user) {
-      res.status(400).send(req.params.Username + ' was not found')
+      res.status(400).send(req.params.Username + ' was not found!')
+    } else if (!movie) {
+      res.status(400).send(req.params.MovieID + ' was not found!')
     } else {
       res.status(200).send(req.params.MovieID + ' was removed.'),
       {$pull: {FavoriteMovies: req.params.MovieID}}
