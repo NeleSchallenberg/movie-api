@@ -120,7 +120,7 @@ app.get('/users/:Username', (req, res) => {
   Users.findOne({Username: req.params.Username})
   .then((user) => {
     if (!user) {
-      return res.status(400).send(req.body.Username + 'User does not exist!')
+      return res.status(400).send('User does not exist!')
     } else {
     res.status(201).json(user)}
   })
