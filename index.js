@@ -17,7 +17,6 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-
 // GET request returning a welcome message
 app.get('/', (req, res) => {
     res.send('Welcome to my my Movie API!')
@@ -25,17 +24,17 @@ app.get('/', (req, res) => {
 
 // GET request returning a list of all movies
 app.get('/movies', (req, res) => {
-    Movies.find()
-    
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    });
+  Movies.find()
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send('Error: ' + error);
+  });
 });
 
 // GET request returning movie by title
 app.get('/movies/:Title', (req, res) => {
-  Movies.findOne({Title: req.params.Title}).then((movie) => {
+  Movies.findOne({Title: req.params.Title})
+  .then((movie) => {
     res.json(movie);
   })
   .catch((err) => {
@@ -46,7 +45,8 @@ app.get('/movies/:Title', (req, res) => {
 
 // GET request returning information about genre by name
 app.get('/movies/:Genre.Name', (req, res) => {
-  Movies.find({'Genre.Name': 'req.params.Genre.Name'}).then((genre) => {
+  Movies.find({'Genre.Name': 'req.params.Genre.Name'})
+  .then((genre) => {
     res.json(genre);
   })
   .catch((err) => {
@@ -57,7 +57,8 @@ app.get('/movies/:Genre.Name', (req, res) => {
 
 // GET request returning information about director by name
 app.get('/movies/:Director.Name', (req, res) => {
-  Movies.find({'Director.Name': 'req.params.Director.Name'}).then((director) => {
+  Movies.find({'Director.Name': 'req.params.Director.Name'})
+  .then((director) => {
     res.json(director);
   })
   .catch((err) => {
@@ -68,52 +69,51 @@ app.get('/movies/:Director.Name', (req, res) => {
 
 // POST request creating a new user, expecting JSON format
 app.post('/users', (req, res) => {
-    Users.findOne({ Username: req.body.Username })
-      .then((user) => {
-        if (user) {
-          return res.status(400).send(req.body.Username + 'already exists');
-        } else {
-          Users.create({
-              Username: req.body.Username,
-              Password: req.body.Password,
-              Email: req.body.Email,
-              Birthday: req.body.Birthday
-            })
-          .then((user) =>{res.status(201).json(user) })
-          .catch((error) => {
-            console.error(error);
-            res.status(500).send('Error: ' + error);
+  Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users.create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
           })
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send('Error: ' + error);
-      });
-  });
+        .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
+});
 
 // PUT request updating user data by name, expecting JSON format
 app.put('/users/:Username', (req, res) => {
-  Users.findOneAndUpdate({Username: req.params.Username}, {$set:
-    {
+  Users.findOneAndUpdate({Username: req.params.Username},
+    {$set: {
       Username: req.body.Username,
       Password: req.body.Password,
       Email: req.body.Email,
       Birthday: req.body.Birthday
+      }
+    },
+    {new: true},
+    (err, updatedUser) => {
+      if(err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.json(updatedUser);
+      }
     }
-  },
-  {new: true},
-  (err, updatedUser) => {
-    if(err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
+  );
 });
-
-
 
 // POST request adding movie to user favorite list by ID
 app.post('/users/:Username/movies/:MovieID', (req, res) => {
