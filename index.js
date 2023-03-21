@@ -119,18 +119,19 @@ app.put('/users/:Username', (req, res) => {
 
 
 // POST request adding movie to user favorite list by ID
-app.post('/users/:Username/movies/:movieID', (req, res) => {
-  Users.findOneAndUpdate({Username: req.params.Username},
-    {$push: {FavoriteMovies: req.params.MovieID}},
-    {new: true},
-    (err, updatedUser) => {
-      if(err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      } else {
-        res.json(updatedUser);
-      }
-    });
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({Username: req.params.Username}, {
+     $push: {FavoriteMovies: req.params.MovieID}
+   },
+   {new: true},
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
 
 // // Removes movie from user favorite list by name
