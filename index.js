@@ -45,7 +45,7 @@ app.get('/movies/:Title', (req, res) => {
   });
 });
 
-// GET request returning information about genre by name
+// GET request returning movies from a certain genre by name
 app.get('/movies/genre/:genreName', (req, res) => {
   Movies.find({'Genre.Name': req.params.genreName})
   .then((genre) => {
@@ -57,21 +57,9 @@ app.get('/movies/genre/:genreName', (req, res) => {
   });
 });
 
-// // Get a Movie by Genre
-// app.get('/movies/genre/:genreName', (req, res) => {
-//   Movies.findOne({ 'Genre.Name': req.params.genreName })
-//     .then((movie) => {
-//       res.json(movie.Genre);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send('Error: ' + err);
-//     });
-// });
-
 // GET request returning information about director by name
-app.get('/movies/:Director.Name', (req, res) => {
-  Movies.find({'Director.Name': 'req.params.Director.Name'})
+app.get('/movies/director/directorName', (req, res) => {
+  Movies.find({'Director.Name': 'req.params.directorName'})
   .then((director) => {
     res.json(director);
   })
