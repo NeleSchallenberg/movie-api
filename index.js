@@ -166,7 +166,7 @@ app.get('/users', (req, res) => {
 });
 
 // GET request reading one user by username
-app.get('/users', (req, res) => {
+app.get('/users/:Username', (req, res) => {
   Users.findOne({Username: req.params.Username}).then((user) => {
     res.json(user);
   })
