@@ -163,7 +163,8 @@ app.put('/users/:Username', (req, res) => {
       Email: req.body.Email,
       Birthday: req.body.Birthday
       }
-    })
+    },
+    {new: true})
   .then((updatedUser) =>{res.status(201).json(updatedUser) })
   .catch((err) => {
     console.error(err);
