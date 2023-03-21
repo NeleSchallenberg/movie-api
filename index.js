@@ -170,19 +170,33 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 
 // DELETE request REMOVING MOVIE FROM FAVORITES
 app.delete('/users/:Username/movies/:MovieID', (req, res) => {
-  Users.findOneAndUpdate({Username: req.params.Username}, {
-     $pull: {FavoriteMovies: req.params.MovieID}
-   },
-   {new: true},
-  (err, updatedUser) => {
-    if (err) {
+  Users.findOneAndRemove({Username: req.params.Username})
+  .then((user) => {
+    if (!user) {
+      res.status(400).send(req.params.Username + ' was not found')
+    } else {
+      res.status(200).send(req.params.MovieID + ' was removed.'),
+      {$pull: {FavoriteMovies: req.params.MovieID}}
+    }
+    })
+    .catch((err) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
+    });
 });
+//     , {
+//      $pull: {FavoriteMovies: req.params.MovieID}
+//    },
+//    {new: true},
+//   (err, updatedUser) => {
+//     if (err) {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     } else {
+//       res.json(updatedUser);
+//     }
+//   });
+// });
 
 //-----------------------------------------------------------------
 
