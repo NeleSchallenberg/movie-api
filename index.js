@@ -119,11 +119,14 @@ app.get('/users', (req, res) => {
 app.get('/users/:Username', (req, res) => {
   Users.findOne({Username: req.params.Username})
   .then((user) => {
-    res.json(user);
+    if (!user) {
+      return res.status(400).send(req.body.Username + ' does not exist!')
+    } else {
+    res.status(201).json(user)}
   })
   .catch((err) => {
     console.error(err);
-    res.status(500).send('User not found!');
+    res.status(500).send('Error: ' + err);
   });
 });
 
