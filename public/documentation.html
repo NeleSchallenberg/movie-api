@@ -111,17 +111,30 @@
             </td>
         </tr>
 
-        <!-- DIRECTOR BY NAME -->
+        <!-- MOVIES BY DIRECTOR -->
         <tr>
-            <td>Get data about a director by name</td>
-            <td>/movies/directors/[name]</td>
+            <td>Get all movies from a certain director</td>
+            <td>/movies/director/[directorName]</td>
             <td>GET</td>
             <td>None</td>
             <td>A JSON object holding data about a director, containing a name and bio property. Example:<br> 
                 {
-                "Name": "Wes Anderson",
-                "Bio": "Wesley Wales Anderson was born on May 1, 1969, in Houston, Texas. His films are known for..."
-            }
+                    "Genre": {
+                        "Name": "Drama",
+                        "Description": "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
+                    },
+                    "Director": {
+                        "Name": "Greta Gerwig",
+                        "Bio": "Greta Celeste Gerwig, born 4th of August 1983 in Sacramento, California, is an American actress, screenwriter, and director, known for acting in and making dialogue-driven independent films. She first garnered attention after working on and appearing in several mumblecore movies.",
+                        "Birth": "1983"
+                    },
+                    "Actors": [],
+                    "Title": "Little Women",
+                    "Year": "2019",
+                    "Length": "135 min",
+                    "Description": "Determined to make her own way in the 1860s, a writer looks back at the tough yet tender times spent with her three spirited sisters and a close friend.",
+                    "ImagePath": "https://images.mubicdn.net/images/film/210045/cache-446056-1578126368/image-w1280.jpg?size=1280x"
+                }
             </td>
         </tr>
 
