@@ -97,25 +97,26 @@ app.post('/users', (req, res) => {
 
 // PUT request updating user data by name, expecting JSON format
 app.put('/users/:Username', (req, res) => {
-  Users.findOneAndUpdate({Username: req.params.Username}, 
-    {$set: 
-      {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        Email: req.body.Email,
-        Birthday: req.body.Birthday
-      }
-    }, 
-    {new: true},
-    (err, updatedUser) => {
-      if(err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      } else {
-        res.json(updatedUser);
-      }
-    });
+  Users.findOneAndUpdate({Username: req.params.Username}, {$set:
+    {
+      Username: req.body.Username,
+      Password: req.body.Password,
+      Email: req.body.Email,
+      Birthday: req.body.Birthday
+    }
+  },
+  {new: true},
+  (err, updatedUser) => {
+    if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
 });
+
+
 
 // POST request adding movie to user favorite list by ID
 app.post('/users/:Username/movies/:movieID', (req, res) => {
