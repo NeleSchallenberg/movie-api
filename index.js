@@ -17,12 +17,12 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 
-// GET request returning a welcome message
+// GET request returning a WELCOME MESSAGE
 app.get('/', (req, res) => {
     res.send('Welcome to my my Movie API!')
 });
 
-// GET request returning a list of all movies
+// GET request returning a list of ALL MOVIES
 app.get('/movies', (req, res) => {
   Movies.find().then((movies) => {
     res.status(201).json(movies);
@@ -33,7 +33,7 @@ app.get('/movies', (req, res) => {
   });
 });
 
-// GET request returning movie by title
+// GET request returning MOVIE BY TITLE
 app.get('/movies/:Title', (req, res) => {
   Movies.findOne({Title: req.params.Title})
   .then((movie) => {
@@ -45,7 +45,7 @@ app.get('/movies/:Title', (req, res) => {
   });
 });
 
-// GET request returning movies from a certain genre
+// GET request returning MOVIES BY GENRE
 app.get('/movies/genre/:genreName', (req, res) => {
   Movies.find({'Genre.Name': req.params.genreName})
   .then((genre) => {
@@ -57,7 +57,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
   });
 });
 
-// GET request returning returning movies from a certain director
+// GET request returning MOVIES BY DIRECTOR
 app.get('/movies/director/:directorName', (req, res) => {
   Movies.find({'Director.Name': req.params.directorName})
   .then((director) => {
@@ -69,7 +69,15 @@ app.get('/movies/director/:directorName', (req, res) => {
   });
 });
 
-// POST request creating a new user, expecting JSON format
+//-----------------------------------------------------------------
+// TBD
+
+// GET request returning information about a director
+// GET request returning information about a genre
+
+//-----------------------------------------------------------------
+
+// POST request creating NEW USER
 app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
@@ -95,7 +103,34 @@ app.post('/users', (req, res) => {
     });
 });
 
-// PUT request updating user data by name, expecting JSON format
+// GET request returning ALL USERS
+app.get('/users', (req, res) => {
+  Users.find()
+  .then((users) => {
+    res.status(201).json(users);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+// GET request returning USER BY USERNAME
+app.get('/users/:Username', (req, res) => {
+  Users.findOne({Username: req.params.Username})
+  .then((user) => {
+    res.json(user);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+//-----------------------------------------------------------------
+// NOT WORKING!!!
+
+// PUT request UPDATING USER DATA by Username
 app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate({Username: req.params.Username},
     {$set: {
@@ -117,10 +152,10 @@ app.put('/users/:Username', (req, res) => {
   );
 });
 
-// POST request adding movie to user favorite list by title
-app.post('/users/:Username/movies/:Title', (req, res) => {
+// POST request ADDING MOVIE TO FAVORITES
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
   Users.findOneAndUpdate({Username: req.params.Username}, {
-     $push: {FavoriteMovies: req.params.Title}
+     $push: {FavoriteMovies: req.params.MovieID}
    },
    {new: true},
   (err, updatedUser) => {
@@ -133,23 +168,7 @@ app.post('/users/:Username/movies/:Title', (req, res) => {
   });
 });
 
-  // // Add a movie to a user's list of favorites
-  // app.post('/users/:Username/movies/:MovieID', (req, res) => {
-  //   Users.findOneAndUpdate({ Username: req.params.Username }, {
-  //      $push: { FavoriteMovies: req.params.MovieID }
-  //    },
-  //    { new: true }, // This line makes sure that the updated document is returned
-  //   (err, updatedUser) => {
-  //     if (err) {
-  //       console.error(err);
-  //       res.status(500).send('Error: ' + err);
-  //     } else {
-  //       res.json(updatedUser);
-  //     }
-  //   });
-  // }); 
-
-// DELETE request removing movie from user favorite list by ID
+// DELETE request REMOVING MOVIE FROM FAVORITES
 app.delete('/users/:Username/movies/:MovieID', (req, res) => {
   Users.findOneAndUpdate({Username: req.params.Username}, {
      $pull: {FavoriteMovies: req.params.MovieID}
@@ -165,7 +184,9 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
   });
 });
 
-// DELETE request removing a user by username
+//-----------------------------------------------------------------
+
+// DELETE request REMOVING USER by Username
 app.delete('/users/:Username', (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
@@ -179,28 +200,6 @@ app.delete('/users/:Username', (req, res) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
     });
-});
-
-// GET request returning ALL users
-app.get('/users', (req, res) => {
-  Users.find().then((users) => {
-    res.status(201).json(users);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
-  });
-});
-
-// GET request returning user by username
-app.get('/users/:Username', (req, res) => {
-  Users.findOne({Username: req.params.Username}).then((user) => {
-    res.json(user);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
-  });
 });
 
 // Creates error-handling middleware function
