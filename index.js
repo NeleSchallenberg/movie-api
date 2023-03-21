@@ -148,16 +148,13 @@ app.put('/users/:Username', (req, res) => {
   })
 });
 
-//-----------------------------------------------------------------
-// NOT WORKING!!!
-
 // POST request ADDING MOVIE TO FAVORITES
 app.post('/users/:Username/movies/:MovieID', (req, res) => {
   Users.findOneAndUpdate({Username: req.params.Username}, {
      $push: {FavoriteMovies: req.params.MovieID}
    },
    {new: true})
-   .then((updatedUser) =>{res.status(201).json(updatedUser) })
+   .then((updatedUser) =>{res.status(201).json(updatedUser).send('Favorite movie was added!') })
    .catch((err) => {
      console.error(err);
      res.status(500).send('Error: ' + err)
@@ -166,37 +163,16 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
 
 // DELETE request REMOVING MOVIE FROM FAVORITES
 app.delete('/users/:Username/movies/:MovieID', (req, res) => {
-  Users.findOneAndRemove({Username: req.params.Username})
-  .then((user, movie) => {
-    if (!user) {
-      res.status(400).send(req.params.Username + ' was not found!')
-    } else if (!movie) {
-      res.status(400).send(req.params.MovieID + ' was not found!')
-    } else {
-      res.status(200).send(req.params.MovieID + ' was removed.'),
-      {$pull: {FavoriteMovies: req.params.MovieID}}
-    }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
+  Users.findOneAndUpdate({Username: req.params.Username}, {
+     $pull: {FavoriteMovies: req.params.MovieID}
+   },
+   {new: true})
+   .then((updatedUser) =>{res.status(201).json(updatedUser).send('Favorite movie was deleted!') })
+   .catch((err) => {
+     console.error(err);
+     res.status(500).send('Error: ' + err)
+   })
 });
-//     , {
-//      $pull: {FavoriteMovies: req.params.MovieID}
-//    },
-//    {new: true},
-//   (err, updatedUser) => {
-//     if (err) {
-//       console.error(err);
-//       res.status(500).send('Error: ' + err);
-//     } else {
-//       res.json(updatedUser);
-//     }
-//   });
-// });
-
-//-----------------------------------------------------------------
 
 // DELETE request REMOVING USER by Username
 app.delete('/users/:Username', (req, res) => {
