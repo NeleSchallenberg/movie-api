@@ -59,7 +59,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
 
 // GET request returning information about director by name
 app.get('/movies/director/directorName', (req, res) => {
-  Movies.find({'Director.Name': 'req.params.directorName'})
+  Movies.find({'Director.Name': req.params.directorName})
   .then((director) => {
     res.json(director);
   })
