@@ -133,27 +133,44 @@ app.get('/users/:Username', (req, res) => {
 //-----------------------------------------------------------------
 // NOT WORKING!!!
 
-// PUT request UPDATING USER DATA by Username
+// // PUT request UPDATING USER DATA by Username
+// app.put('/users/:Username', (req, res) => {
+//   Users.findOneAndUpdate({Username: req.params.Username},
+//     {$set: {
+//       Username: req.body.Username,
+//       Password: req.body.Password,
+//       Email: req.body.Email,
+//       Birthday: req.body.Birthday
+//       }
+//     },
+//     {new: true},
+//     (err, updatedUser) => {
+//       if(err) {
+//         console.error(err);
+//         res.status(500).send('Error: ' + err);
+//       } else {
+//         res.json(updatedUser);
+//       }
+//     }
+//   );
+// });
+
 app.put('/users/:Username', (req, res) => {
-  Users.findOneAndUpdate({Username: req.params.Username},
+  Users.findOneAndUpdate({ Username: req.params.Username },
     {$set: {
       Username: req.body.Username,
       Password: req.body.Password,
       Email: req.body.Email,
       Birthday: req.body.Birthday
       }
-    },
-    {new: true},
-    (err, updatedUser) => {
-      if(err) {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      } else {
-        res.json(updatedUser);
-      }
-    }
-  );
+    })
+  .then((updatedUser) =>{res.status(201).json(updatedUser) })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err)
+  })
 });
+
 
 // POST request ADDING MOVIE TO FAVORITES
 app.post('/users/:Username/movies/:MovieID', (req, res) => {
