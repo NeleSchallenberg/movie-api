@@ -117,13 +117,23 @@
             <td>/users</td>
             <td>POST</td>
             <td>A JSON object holding data about the user to register, structured like:
-                { "name": "Karen", "favoriteMovies": [] }
+                {
+                    "Username": "newUser",
+                    "Password": "newPassword",
+                    "Email": "new-email@gmx.net",
+                    "Birthday": "1990/09/09",
+                    "FavoriteMovies": ["m6", "m8", "m10"]
+                }
             </td>
             <td>A JSON object holding data about the user that was registered, including an ID:
                 {
-                    "name": "Karen",
-                    "favoriteMovies": [],
-                    "id": "3681d316-902e-4921-9208-2ceba39b41a6"
+                    "Username": "newUser",
+                    "Password": "newPassword",
+                    "Email": "new-email@gmx.net",
+                    "Birthday": "1990-09-08T22:00:00.000Z",
+                    "FavoriteMovies": [],
+                    "_id": "6419ad920e5ccdbc91d36a66",
+                    "__v": 0
                 }
             </td>
         </tr>
