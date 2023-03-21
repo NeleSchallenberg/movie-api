@@ -83,16 +83,30 @@
             </td>
         </tr>
 
-        <!-- GENRE BY NAME -->
+        <!-- MOVIES BY GENRE -->
         <tr>
-            <td>Get data about a genre by name</td>
-            <td>/movies/genres/[name]</td>
+            <td>Get all movies from a certain genre</td>
+            <td>/movies/genre/[genreName]</td>
             <td>GET</td>
             <td>None</td>
             <td>A JSON object holding data about a genre, containing a name and description property. Example:<br> 
                 {
-                    "Name": "Drama",
-                    "Description": "In film and television, drama is a category or genre of narrative fiction..."
+                    "Genre": {
+                        "Name": "Drama",
+                        "Description": "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
+                    },
+                    "Director": {
+                        "Name": "Sofia Coppola",
+                        "Bio": "Sofia Carmina Coppola, born 14th of May 1971 in New York City, is an American filmmaker and actress. The youngest child and only daughter of filmmakers Eleanor and Francis Ford Coppola, she made her film debut as an infant in her father's acclaimed crime drama film 'The Godfather'.",
+                        "Birth": "1971"
+                    },
+                    "Actors": [],
+                    "Title": "The Virgin Suicides",
+                    "Year": "1999",
+                    "Length": "97 min",
+                    "Description": "In suburban 1970’s America, five dreamy sisters are quarantined away from social interaction when their youngest sister commits suicide. Their doomed fates indelibly mark the neighborhood boys who obsess over them.",
+                    "ImagePath": "https://images.mubicdn.net/images/film/313/cache-8080-1530511393/image-w1280.jpg?size=1280x",
+                    "id": 1
                 }
             </td>
         </tr>
