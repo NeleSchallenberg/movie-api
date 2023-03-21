@@ -130,31 +130,7 @@ app.get('/users/:Username', (req, res) => {
   });
 });
 
-//-----------------------------------------------------------------
-// NOT WORKING!!!
-
-// // PUT request UPDATING USER DATA by Username
-// app.put('/users/:Username', (req, res) => {
-//   Users.findOneAndUpdate({Username: req.params.Username},
-//     {$set: {
-//       Username: req.body.Username,
-//       Password: req.body.Password,
-//       Email: req.body.Email,
-//       Birthday: req.body.Birthday
-//       }
-//     },
-//     {new: true},
-//     (err, updatedUser) => {
-//       if(err) {
-//         console.error(err);
-//         res.status(500).send('Error: ' + err);
-//       } else {
-//         res.json(updatedUser);
-//       }
-//     }
-//   );
-// });
-
+// PUT request UPDATING USER DATA by Username
 app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username },
     {$set: {
@@ -172,21 +148,20 @@ app.put('/users/:Username', (req, res) => {
   })
 });
 
+//-----------------------------------------------------------------
+// NOT WORKING!!!
 
 // POST request ADDING MOVIE TO FAVORITES
 app.post('/users/:Username/movies/:MovieID', (req, res) => {
   Users.findOneAndUpdate({Username: req.params.Username}, {
      $push: {FavoriteMovies: req.params.MovieID}
    },
-   {new: true},
-  (err, updatedUser) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
+   {new: true})
+   .then((updatedUser) =>{res.status(201).json(updatedUser) })
+   .catch((err) => {
+     console.error(err);
+     res.status(500).send('Error: ' + err)
+   })
 });
 
 // DELETE request REMOVING MOVIE FROM FAVORITES
