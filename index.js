@@ -95,47 +95,7 @@ app.post('/users', (req, res) => {
       });
   });
 
-// 
-// app.post('/users', (req, res) => {
-//     User.findOne({Username: req.body.Username}).then((user) => {
-//         if (user) {
-//             return res.status(400).send(req.body.Username + 'already exists.')
-//         } else {
-//             User.create({
-//                 Username: req.body.Username,
-//                 Password: req.body.Password,
-//                 Email: req.body.Email,
-//                 Birthday: req.body.Birthday
-//             })
-//             .then((user) => {
-//                 res.status(201).json(user);
-//             })
-//             .catch((error) => {
-//                 console.error(error);
-//                 res.status(500).send('Error:' + error);
-//             })
-//         }
-//     })
-//     .catch((error) => {
-//         console.error(error);
-//         res.status(500).send('Error:' + error);
-//     });
-// });
 
-
-
-// // Registers new user
-// app.post('/users', (req, res) => {
-//     const newUser = req.body;
-
-//     if (newUser.name) {
-//         newUser.id = uuid.v4();
-//         users.push(newUser);
-//         res.status(201).json(newUser)
-//     } else {
-//         res.status(400).send('Name is required.')
-//     }
-// });
 
 // // Updates user name
 // app.put('/users/:id', (req, res) => {
@@ -193,6 +153,28 @@ app.post('/users', (req, res) => {
 //         res.status(400).send('User not found :(')
 //     }
 // });
+
+// GET request reading ALL users
+app.get('/users', (req, res) => {
+  Users.find().then((users) => {
+    res.status(201).json(users);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
+
+// GET request reading one user by username
+app.get('/users', (req, res) => {
+  Users.findOne({Username: req.params.Username}).then((user) => {
+    res.json(user);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
 // Creates error-handling middleware function
 app.use((err, req, res, next) => {
