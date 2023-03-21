@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to my my Movie API!')
 });
 
-// GET request, returning a list of all movies
+// GET request returning a list of all movies
 app.get('/movies', (req, res) => {
     Movies.find()
     
@@ -32,42 +32,39 @@ app.get('/movies', (req, res) => {
       res.status(500).send('Error: ' + error);
     });
 });
-    
 
+// GET request returning movie by title
+app.get('/movies/:Title', (req, res) => {
+  Movies.findOne({Title: req.params.Title}).then((movie) => {
+    res.json(movie);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
+// GET request returning information about genre by name
+app.get('/movies/:Genre.Name', (req, res) => {
+  Movies.find({'Genre.Name': 'req.params.Genre.Name'}).then((genre) => {
+    res.json(genre);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
-// // Returns data about a single movie by title
-// app.get('/movies/:title', (req, res) => {
-//     const { title } = req.params;
-//     const movie = movies.find( movie => movie.Title === title );
-//     if (movie) {
-//         res.status(200).json(movie);
-//     } else {
-//         res.status(404).send('Movie not found :(')
-//     }
-// });
-
-// // Returns data about a genre by name
-// app.get('/movies/genres/:genreName', (req, res) => {
-//     const { genreName } = req.params;
-//     const genre = movies.find(movie => movie.Genre.Name === genreName).Genre;
-//     if (genre) {
-//         res.status(200).json(genre);
-//     } else {
-//         res.status(404).send('Genre not found :(')
-//     }
-// });
-
-// // Returns data about a director by name
-// app.get('/movies/directors/:directorName', (req, res) => {
-//     const { directorName } = req.params;
-//     const director = movies.find(movie => movie.Director.Name === directorName).Director;
-//     if (director) {
-//         res.status(200).json(director);
-//     } else {
-//         res.status(404).send('Director not found :(')
-//     }
-// });
+// GET request returning information about director by name
+app.get('/movies/:Director.Name', (req, res) => {
+  Movies.find({'Director.Name': 'req.params.Director.Name'}).then((director) => {
+    res.json(director);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
 // POST request creating a new user, expecting JSON format
 app.post('/users', (req, res) => {
@@ -134,33 +131,37 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
   });
 });
 
-// // Removes movie from user favorite list by name
-// app.delete('/users/:name/:movieTitle', (req, res) => {
-//     const { name, movieTitle } = req.params;
+// DELETE request removing movie from user favorite list by ID
+app.delete('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.findOneAndUpdate({Username: req.params.Username}, {
+     $pull: {FavoriteMovies: req.params.MovieID}
+   },
+   {new: true},
+  (err, updatedUser) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
 
-//     let user = users.find( user => user.name == name );
-
-//     if (user) {
-//         user.favoriteMovies = user.favoriteMovies.filter( title => title !== movieTitle);
-//         res.status(200).send(`${movieTitle} has been removed from ${name}'s list!`);
-//     } else {
-//         res.status(400).send('User not found :(')
-//     }
-// });
-
-// // Removes user by ID
-// app.delete('/users/:id', (req, res) => {
-//     const { id } = req.params;
-
-//     let user = users.find( user => user.id == id );
-
-//     if (user) {
-//         users = users.filter( user => user.id != id);
-//         res.status(200).send(`User ${id} has been deleted.`);
-//     } else {
-//         res.status(400).send('User not found :(')
-//     }
-// });
+// DELETE request removing a user by username
+app.delete('/users/:Username', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send(req.params.Username + ' was not found');
+      } else {
+        res.status(200).send(req.params.Username + ' was deleted.');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
 
 // GET request reading ALL users
 app.get('/users', (req, res) => {
