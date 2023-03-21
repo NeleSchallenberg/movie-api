@@ -19,12 +19,14 @@ app.use(bodyParser.json());
 
 // GET request returning a WELCOME MESSAGE
 app.get('/', (req, res) => {
-    res.send('Welcome to my my Movie API!')
+  console.log('App is listening on port 8080.');
+  res.send('Welcome to my Movie API!')
 });
 
 // GET request returning a list of ALL MOVIES
 app.get('/movies', (req, res) => {
   Movies.find().then((movies) => {
+    console.log('200 - The request was fulfilled.');
     res.status(201).json(movies);
   })
   .catch((err) => {
@@ -37,6 +39,7 @@ app.get('/movies', (req, res) => {
 app.get('/movies/:Title', (req, res) => {
   Movies.findOne({Title: req.params.Title})
   .then((movie) => {
+    console.log('200 - The request was fulfilled.');
     res.status(201).json(movie);
   })
   .catch((err) => {
@@ -49,6 +52,7 @@ app.get('/movies/:Title', (req, res) => {
 app.get('/movies/genre/:genreName', (req, res) => {
   Movies.find({'Genre.Name': req.params.genreName})
   .then((genre) => {
+    console.log('200 - The request was fulfilled.');
     res.json(genre);
   })
   .catch((err) => {
@@ -61,6 +65,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
 app.get('/movies/director/:directorName', (req, res) => {
   Movies.find({'Director.Name': req.params.directorName})
   .then((director) => {
+    console.log('200 - The request was fulfilled.');
     res.json(director);
   })
   .catch((err) => {
@@ -90,7 +95,9 @@ app.post('/users', (req, res) => {
             Email: req.body.Email,
             Birthday: req.body.Birthday
           })
-        .then((user) =>{res.status(201).json(user) })
+        .then((user) => {
+          console.log('200 - The request was fulfilled.');
+          res.status(201).json(user) })
         .catch((error) => {
           console.error(error);
           res.status(500).send('Error: ' + error);
@@ -107,6 +114,7 @@ app.post('/users', (req, res) => {
 app.get('/users', (req, res) => {
   Users.find()
   .then((users) => {
+    console.log('200 - The request was fulfilled.');
     res.status(201).json(users);
   })
   .catch((err) => {
@@ -122,7 +130,9 @@ app.get('/users/:Username', (req, res) => {
     if (!user) {
       return res.status(400).send('User does not exist!')
     } else {
-    res.status(201).json(user)}
+      console.log('200 - The request was fulfilled.');
+      res.status(201).json(user)
+    }
   })
   .catch((err) => {
     console.error(err);
@@ -141,7 +151,9 @@ app.put('/users/:Username', (req, res) => {
       }
     },
     {new: true})
-  .then((updatedUser) =>{res.status(201).json(updatedUser) })
+  .then((updatedUser) => {
+    console.log('200 - The request was fulfilled.');
+    res.status(201).json(updatedUser) })
   .catch((err) => {
     console.error(err);
     res.status(500).send('Error: ' + err)
