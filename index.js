@@ -45,7 +45,7 @@ app.get('/movies/:Title', (req, res) => {
   });
 });
 
-// GET request returning movies from a certain genre by name
+// GET request returning movies from a certain genre
 app.get('/movies/genre/:genreName', (req, res) => {
   Movies.find({'Genre.Name': req.params.genreName})
   .then((genre) => {
@@ -57,7 +57,7 @@ app.get('/movies/genre/:genreName', (req, res) => {
   });
 });
 
-// GET request returning returning movies from a certain director by name
+// GET request returning returning movies from a certain director
 app.get('/movies/director/:directorName', (req, res) => {
   Movies.find({'Director.Name': req.params.directorName})
   .then((director) => {
