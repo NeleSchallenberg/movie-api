@@ -169,7 +169,9 @@ app.delete('/users/:Username/movies/:MovieID', (req, res) => {
      $pull: {FavoriteMovies: req.params.MovieID}
    },
    {new: true})
-   .then((updatedUser) =>{res.status(201).json(updatedUser).send('Favorite movie was deleted!') })
+   .then((updatedUser) => {
+    console.log('Favorite movie was deleted!');
+    res.status(201).json(updatedUser)})
    .catch((err) => {
      console.error(err);
      res.status(500).send('Error: ' + err)
