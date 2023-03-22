@@ -16,6 +16,12 @@ mongoose.connect('mongodb://localhost:27017/cfDB', { useNewUrlParser: true, useU
 app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
 
 // GET request returning a WELCOME MESSAGE
 app.get('/', (req, res) => {
@@ -24,7 +30,7 @@ app.get('/', (req, res) => {
 });
 
 // GET request returning a list of ALL MOVIES
-app.get('/movies', (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find().then((movies) => {
     console.log('200 - The request was fulfilled.');
     res.status(201).json(movies);
