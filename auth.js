@@ -10,7 +10,7 @@ let generateJWTToken = (user) => {
     return jwt.sign(user, jwtSecret, {
         subject: user.Username,
         expiresIn: '7d',
-        algorythm: 'HS256'
+        algorithm: 'HS256'
     });
 }
 
@@ -30,6 +30,10 @@ module.exports = (router) => {
                     res.send(error);
                 }
                 let token = generateJWTToken(user.toJSON());
+                return res.json({
+                    user,
+                    token
+                });
             });
         })(req, res);
     });
