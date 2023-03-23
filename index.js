@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const bcrybt = require('bcrypt');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -17,6 +18,9 @@ app.use(express.static('public'));
 app.use(morgan('common'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+const cors = require('cors');
+app.use(cors());
 
 let auth = require('./auth')(app);
 
