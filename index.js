@@ -176,6 +176,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
 ], (req, res) => {
   let errors = validationResult(req);
   if (!errors.isEmpty()) {
+    console.log('Something went wrong!');
     return res.status(422).json({errors: errors.array()});
   }
   Users.findOneAndUpdate({ Username: req.params.Username },
@@ -192,6 +193,7 @@ app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
     res.status(201).json(updatedUser) })
   .catch((err) => {
     console.error(err);
+    console.log('Something went wrong!');
     res.status(500).send('Error: ' + err)
   })
 });
