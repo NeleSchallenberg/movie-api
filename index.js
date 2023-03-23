@@ -7,6 +7,7 @@ const uuid = require('uuid');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 const bcrybt = require('bcrypt');
+const {check, validationResult} = require('express-validator');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -93,32 +94,44 @@ app.get('/movies/director/:directorName', passport.authenticate('jwt', { session
 //-----------------------------------------------------------------
 
 // POST request creating NEW USER
-app.post('/users', (req, res) => {
+app.post('/users',
+[
+  check('Username', 'Username is required').not().isEmpty(),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').isLength({min: 8}),
+  check('Password', 'Password contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Email', 'Email is not valid').isEmail(),
+//check('Birthday', 'Birthday is not valid').is ??? ()
+], (req, res) => {
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()});
+  }
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username })
-    .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.Username + ' already exists!');
-      } else {
-        Users.create({
-            Username: req.body.Username,
-            Password: hashedPassword,
-            Email: req.body.Email,
-            Birthday: req.body.Birthday
-          })
-        .then((user) => {
-          console.log('200 - The request was fulfilled.');
-          res.status(201).json(user) })
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send('Error: ' + error);
+  .then((user) => {
+    if (user) {
+      return res.status(400).send(req.body.Username + ' already exists!');
+    } else {
+      Users.create({
+          Username: req.body.Username,
+          Password: hashedPassword,
+          Email: req.body.Email,
+          Birthday: req.body.Birthday
         })
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    });
+      .then((user) => {
+        console.log('200 - The request was fulfilled.');
+        res.status(201).json(user) })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      })
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+    res.status(500).send('Error: ' + error);
+  });
 });
 
 // GET request returning ALL USERS
@@ -152,7 +165,19 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
 });
 
 // PUT request UPDATING USER DATA by Username
-app.put('/users/:Username', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.put('/users/:Username', passport.authenticate('jwt', { session: false }),
+[
+  check('Username', 'Username is required').not().isEmpty(),
+  check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required').isLength({min: 8}),
+  check('Password', 'Password contains non alphanumeric characters - not allowed.').isAlphanumeric(),
+  check('Email', 'Email is not valid').isEmail(),
+//check('Birthday', 'Birthday is not valid').is ??? ()
+], (req, res) => {
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array()});
+  }
   Users.findOneAndUpdate({ Username: req.params.Username },
     {$set: {
       Username: req.body.Username,
