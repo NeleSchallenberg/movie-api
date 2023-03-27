@@ -88,34 +88,39 @@ app.get('/movies/director/:directorName', passport.authenticate('jwt', { session
   });
 });
 
-//-----------------------------------------------------------------
-// TBD
-
 // GET request returning information about a director
 app.get('/movies/directors/:directorName', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.findOne({ 'Director.Name': req.params.directorName })
-    .then((movie) => {
-      if (movie) {
-        console.log('200 - The request was fulfilled.');
-        res.status(200).json(movie.Director);
-      } else {
-        return res
-          .status(400)
-          .send(
-            req.params.directorName + " was not found in the database."
-          );
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-  }
-);
+  .then((movie) => {
+    if (movie) {
+      console.log('200 - The request was fulfilled.');
+      res.status(200).json(movie.Director);
+    } else {
+      return res.status(400).send(req.params.directorName + ' was not found in the database.');
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
 // GET request returning information about a genre
-
-//-----------------------------------------------------------------
+app.get('/movies/genres/:genreName', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Movies.findOne({ 'Genre.Name': req.params.genreName })
+  .then((movie) => {
+    if (movie) {
+      console.log('200 - The request was fulfilled.');
+      res.status(200).json(movie.Genre);
+    } else {
+      return res.status(400).send('The genre ' + req.params.genreName + ' was not found in the database.');
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
+});
 
 // POST request creating NEW USER
 app.post('/users',
