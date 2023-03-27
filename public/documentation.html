@@ -68,6 +68,55 @@
             <td>Detailed documentation about the API, its topic and the different endpoints and their responses.</td>
         </tr>
 
+          <!-- CREATE NEW USER -->
+          <tr>
+            <td>Register new users</td>
+            <td>/users</td>
+            <td>POST</td>
+            <td>A JSON object holding data about the user to register, structured like:
+                {
+                    "Username": "newUser",
+                    "Password": "newPassword",
+                    "Email": "new-email@gmx.net",
+                    "Birthday": "1990/09/09",
+                    "FavoriteMovies": ["m6", "m8", "m10"]
+                }
+            </td>
+            <td>A JSON object holding data about the user that was registered, including an ID:
+                {
+                    "Username": "newUser",
+                    "Password": "newPassword",
+                    "Email": "new-email@gmx.net",
+                    "Birthday": "1990-09-08T22:00:00.000Z",
+                    "FavoriteMovies": [],
+                    "_id": "6419ad920e5ccdbc91d36a66",
+                    "__v": 0
+                }
+            </td>
+        </tr>
+
+          <!-- LOGIN -->
+          <tr>
+            <td>Login existing users</td>
+            <td>/login</td>
+            <td>POST</td>
+            <td>A key-value pair with the username and password of the existing user.</td>
+            <td>A JSON object holding data about the user that was logged in and a token for authorization:
+                {
+                    "user": {
+                        "_id": "6421b57b59f5def15e8f63df",
+                        "Username": "newUser",
+                        "Password": "$2b$10$Zz.OkmWgL/5ZmLRaFhWa6exjuuoz2zl2VPbbJmOdEwO4YkV5HirlK",
+                        "Email": "new-email@gmx.net",
+                        "Birthday": "1990-09-07T22:00:00.000Z",
+                        "FavoriteMovies": [],
+                        "__v": 0
+                    },
+                    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDIxYjU3YjU5ZjVkZWYxNWU4ZjYzZGYiLCJVc2VybmFtZSI6Im5ld1VzZXIiLCJQYXNzd29yZCI6IiQyYiQxMCRaei5Pa21XZ0wvNVptTFJhRmhXYTZleGp1dW96MnpsMlZQYmJKbU9kRXdPNFlrVjVIaXJsSyIsIkVtYWlsIjoibmV3LWVtYWlsQGdteC5uZXQiLCJCaXJ0aGRheSI6IjE5OTAtMDktMDdUMjI6MDA6MDAuMDAwWiIsIkZhdm9yaXRlTW92aWVzIjpbXSwiX192IjowLCJpYXQiOjE2Nzk5MzA3NjQsImV4cCI6MTY4MDUzNTU2NCwic3ViIjoibmV3VXNlciJ9.8GpPd5HOkDdgaNkOD6CbmMHLhvKCJHgOVCAigNs8KY0"
+                }
+            </td>
+        </tr>
+
         <!-- LIST OF ALL MOVIES -->
         <tr>
             <td>Get a list of all movies</td>
@@ -185,29 +234,31 @@
             </td>
         </tr>
 
-        <!-- CREATE NEW USER -->
-        <tr>
-            <td>Register new users</td>
-            <td>/users</td>
-            <td>POST</td>
-            <td>A JSON object holding data about the user to register, structured like:
+         <!-- DIRECTOR BY NAME -->
+         <tr>
+            <td>Get information about a director by name</td>
+            <td>/movies/directors/[directorName]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about a certain director. Example:<br> 
                 {
-                    "Username": "newUser",
-                    "Password": "newPassword",
-                    "Email": "new-email@gmx.net",
-                    "Birthday": "1990/09/09",
-                    "FavoriteMovies": ["m6", "m8", "m10"]
+                    "Name": "Sofia Coppola",
+                    "Bio": "Sofia Carmina Coppola, born 14th of May 1971 in New York City, is an American filmmaker and actress. The youngest child and only daughter of filmmakers Eleanor and Francis Ford Coppola, she made her film debut as an infant in her father's acclaimed crime drama film 'The Godfather'.",
+                    "Birth": "1971"
                 }
             </td>
-            <td>A JSON object holding data about the user that was registered, including an ID:
+        </tr>
+
+         <!-- GENRE BY NAME -->
+         <tr>
+            <td>Get information about a genre by name</td>
+            <td>/movies/genres/[genreName]</td>
+            <td>GET</td>
+            <td>None</td>
+            <td>A JSON object holding data about a certain genre. Example:<br> 
                 {
-                    "Username": "newUser",
-                    "Password": "newPassword",
-                    "Email": "new-email@gmx.net",
-                    "Birthday": "1990-09-08T22:00:00.000Z",
-                    "FavoriteMovies": [],
-                    "_id": "6419ad920e5ccdbc91d36a66",
-                    "__v": 0
+                    "Name": "Comedy",
+                    "Description": "In film and television, drama is a category or genre of narrative fiction (or semi-fiction) intended to be more serious than humorous in tone."
                 }
             </td>
         </tr>
