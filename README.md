@@ -9,3 +9,7 @@ Users will be able to sign up, update their personal information, and create a l
 The next step is to create the client-side part of the application.
 
 In the future, I want to update the database with women in other off-screen professions such as writers, cinematographers and production designers and include a function to find a specific person by name and receive general information about them, as well as a list of their work.
+
+## Documentation
+
+https://female-filmmakers.herokuapp.com/documentation.html
