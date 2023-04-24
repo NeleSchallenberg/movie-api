@@ -1,5 +1,6 @@
 # Movie API
-This project is the server-side component of a “female filmmakers” web application.
+This project is the server-side component of the Female Filmmakers web application.
+It was built built as a task for Achievement 2 in Career Foundry's Full-Stack Web Development Program.
 
 The web application will provide users with access to information about different female filmmakers and their work.
 For now, the database consists of several female directors and their feature-length films (with a minimum of 80 minutes as defined by the Screen Actors Guild).
